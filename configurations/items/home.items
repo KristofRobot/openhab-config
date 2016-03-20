@@ -28,27 +28,6 @@ Group SF_Corridor 	"Corridor" 		<corridor> 	(gSF)
 Group Out_Terrace 	"Terrace" 		<terrace> 	(gOut)
 Group Out_Garden 	"Garden" 		<garden> 	(gOut)
 
-/* active groups */
-Group:Number:AVG 				Temperature	"Avg. Room Temperature [%.1f °C]" 	<temperature>	(Status)
-
-/* Lights */
-Dimmer Light_GF_Living_Table 		"Table" 		(FF_Living, Lights)
-Switch Light_GF_Corridor_Ceiling 	"Ceiling" 		(FF_Corridor, Lights)
-
-
-/* Heating */
-Switch Heating_GF_Corridor 	"GF Corridor" 	<heating>	(GF_Corridor, Heating)
-Switch Heating_GF_Toilet 	"Toilet"	 	<heating>	(GF_Toilet, Heating)
-
-/* Rollershutters */
-Switch Shutter_all (Shutters)
-
-Rollershutter Shutter_GF_Garage 		"Garage Door"		(GF_Garage, Shutters)
-Rollershutter Shutter_GF_Wash    		"Wash Room Windows"	(GF_Wash, Shutters)
-
-
-Contact Garage_Door 			"Garage Door [MAP(en.map):%s]"		(Ga_Garage, Windows)
-
 Group Climate
 Group Dust
 Group Charts
@@ -62,33 +41,29 @@ Number Weather_Temp_Min 		"Todays Minimum [%.1f °C]"	<temperature> (Weather_Cha
 Number Weather_Chart_Period		"Chart Period"
 DateTime Weather_LastUpdate		"Last Update [%1$ta %1$tR]"	<clock>
 
-/* Sensors */
+/* Flukso */
 Group Energy_Chart
-Number Flukso_Gas   "Current Gas [%.1f L/day]"    <fire>  (gEnergy) {mqtt="<[flukso:/sensor/***REMOVED***/gauge:state:REGEX(.*,(.*),.*)]"}
-Number Flukso_Gas_Total   "Total Gas [%.1f L]"     <fire>  (gEnergy) {mqtt="<[flukso:/sensor/***REMOVED***/counter:state:REGEX(.*,(.*),.*)]"}
-Number Gas_Today  "Today Gas [%.3f m3]" <fire> (gEnergy)
+Number E_Chart_Period             "Chart Period"
 
 Number Flukso_Elec   "Current Electricity [%.1f W]"   <energy>  (gEnergy, Energy_Chart) {mqtt="<[flukso:/sensor/***REMOVED***/gauge:state:REGEX(.*,(.*),.*)]"}
-Number Flukso_Elec_Total  "Total Electricity [%.1f Wh]"   <energy>  (gEnergy)  {mqtt="<[flukso:/sensor/***REMOVED***/counter:state:REGEX(.*,(.*),.*)]"}
-Number Elec_Today  "Today Electricity [%.3f kWh]" <energy> (gEnergy)
-
+Number Flukso_Gas   "Current Gas [%.1f L/day]"    <fire>  (gEnergy) {mqtt="<[flukso:/sensor/***REMOVED***/gauge:state:REGEX(.*,(.*),.*)]"}
 Number Flukso_Water   "Current Water    [%.1f L/day]"   <water>  (gEnergy)   {mqtt="<[flukso:/sensor/***REMOVED***/gauge:state:REGEX(.*,(.*),.*)]"}
 
+Number Flukso_Elec_Total  "Total Electricity [%.1f Wh]"   <energy>  (gEnergy)  {mqtt="<[flukso:/sensor/***REMOVED***/counter:state:REGEX(.*,(.*),.*)]"}
+Number Flukso_Gas_Total   "Total Gas [%.1f L]"     <fire>  (gEnergy) {mqtt="<[flukso:/sensor/***REMOVED***/counter:state:REGEX(.*,(.*),.*)]"}
 Number Flukso_Water_Total   "Total Water  [%.1f L]"   <water>   (gEnergy)   {mqtt="<[flukso:/sensor/***REMOVED***/counter:state:REGEX(.*,(.*),.*)]"}
+
+Number Elec_Today  "Today Electricity [%.3f kWh]" <energy> (gEnergy)
+Number Gas_Today  "Today Gas [%.3f m3]" <fire> (gEnergy)
 Number Water_Today  "Today Water [%.1f l]" <water> (gEnergy)
 
-/*Cost*/
+/* Cost */
 Number Elec_Cost_Today  "Cost Electricity [%.2f EUR]" <energy>  (gEnergy)
 Number Gas_Cost_Today  "Cost Gas [%.2f EUR]"  <fire>  (gEnergy)
 Number Water_Cost_Today  "Cost Water [%.2f EUR]" <water> (gEnergy)
 Number Cost_Today  "Cost Total [%.2f EUR]"  (gEnergy) 
 
-/*
-String Arduino "Arduino" { serial="/dev/ttyUSB99@115200" }
-Number          Temp01                            "Temperature [%.1f °C]" <temperature> (GF_Office)
-Number          Hum01                             "Humidity [%.1f %%]" <temperature> (GF_Office)
-*/
-
+/* MySensors sensors */
 Number  S_Hum01              "Humidity [%.1f %%Rh]"   <water>         (GF_Guest)        {mysensors="3;0;V_HUM"}
 Number  S_Temp01           "Temperature [%.1f °C]"     <temperature>   (GF_Guest)     {mysensors="3;1;V_TEMP"}
 Number  S_Hum02              "Humidity [%.1f %%Rh]"   <water>         (SF_Bed)        {mysensors="5;0;V_HUM"}
@@ -96,7 +71,8 @@ Number  S_Temp02           "Temperature [%.1f °C]"     <temperature>   (SF_Bed)
 Number  S_Hum03              "Humidity [%.1f %%Rh]"   <water>         (GF_Office)        {mysensors="0;0;V_HUM"}
 Number  S_Temp03           "Temperature [%.1f °C]"     <temperature>   (GF_Office)     {mysensors="0;1;V_TEMP"}
 Number  S_Dust01           "Dust [%.0f pcs/283ml]"     <fire>   (GF_Office)     {mysensors="4;0;V_LEVEL"}
+
+/* CO2 monitor */
+Number Climate_Chart_Period             "Chart Period"
 Number  CO2              "CO2 [%.0f ppm]"   <fire>         (FF_Living, Climate)       
 Number  CO2_T           "Temperature [%.1f °C]"     <temperature>   (Temperature,FF_Living, Climate, Weather_Chart)
-Number Climate_Chart_Period             "Chart Period"
-Number E_Chart_Period             "Chart Period"
