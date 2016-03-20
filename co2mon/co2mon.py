@@ -49,9 +49,13 @@ def hd(d):
 def publish_openhab_status(key, value):
     """ Put a status update to OpenHAB  key is item, value is state """
     url = 'http://localhost:8080/rest/items/%s/state'%(key)
-    req = requests.put(url, data=value, headers=basic_header())
-    if req.status_code != requests.codes.ok:
-        req.raise_for_status()   
+    try:
+        req = requests.put(url, data=value, headers=basic_header())
+    except:
+        #Ignore connection errors
+        pass
+#    if req.status_code != requests.codes.ok:
+#        req.raise_for_status()
 
 if __name__ == "__main__":
     # Key retrieved from /dev/random, guaranteed to be random ;)
@@ -64,6 +68,8 @@ if __name__ == "__main__":
     fcntl.ioctl(fp, HIDIOCSFEATURE_9, set_report)
     
     values = {}
+    lastTemp = 0
+    lastCO2 = 0
     
     while True:
         data = list(ord(e) for e in fp.read(8))
@@ -79,12 +85,14 @@ if __name__ == "__main__":
             # Output all data, mark just received value with asterisk
             #print ", ".join( "%s%02X: %04X %5i" % ([" ", "*"][op==k], k, v, v) for (k, v) in sorted(values.items())), "  ", 
             ## From http://co2meters.com/Documentation/AppNotes/AN146-RAD-0401-serial-communication.pdf
-            if 0x50 in values:
-                #print "CO2: %4i" % values[0x50], 
-                publish_openhab_status("CO2","%4i" % values[0x50])
-            if 0x42 in values:
-                #print "T: %2.2f" % (values[0x42]/16.0-273.15), 
-                publish_openhab_status("CO2_T","%2.2f" % (values[0x42]/16.0-273.15))
+            if 0x50 in values and lastCO2 != values[0x50]:
+                print "CO2: %4i" % values[0x50]
+                publish_openhab_status("CO2", str(values[0x50]))
+                lastCO2 = values[0x50]
+            if 0x42 in values and lastTemp != values[0x42]:
+                print "T: %2.2f" % (values[0x42]/16.0-273.15)
+                publish_openhab_status("CO2_T","%.2f" % (values[0x42]/16.0-273.15))
+                lastTemp = values[0x42]
             #if 0x44 in values:
                 #print "RH: %2.2f" % (values[0x44]/100.0), 
             #print
