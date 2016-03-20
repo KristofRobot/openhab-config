@@ -45,13 +45,13 @@ DateTime Weather_LastUpdate		"Last Update [%1$ta %1$tR]"	<clock>
 Group Energy_Chart
 Number E_Chart_Period             "Chart Period"
 
-Number Flukso_Elec   "Current Electricity [%.1f W]"   <energy>  (gEnergy, Energy_Chart) {mqtt="<[flukso:/sensor/***REMOVED***/gauge:state:REGEX(.*,(.*),.*)]"}
-Number Flukso_Gas   "Current Gas [%.1f L/day]"    <fire>  (gEnergy) {mqtt="<[flukso:/sensor/***REMOVED***/gauge:state:REGEX(.*,(.*),.*)]"}
-Number Flukso_Water   "Current Water    [%.1f L/day]"   <water>  (gEnergy)   {mqtt="<[flukso:/sensor/***REMOVED***/gauge:state:REGEX(.*,(.*),.*)]"}
+Number Flukso_Elec   "Current Electricity [%.1f W]"   <energy>  (gEnergy, Energy_Chart) {mqtt="<[flukso:/sensor/<>/gauge:state:REGEX(.*,(.*),.*)]"}
+Number Flukso_Gas   "Current Gas [%.1f L/day]"    <fire>  (gEnergy) {mqtt="<[flukso:/sensor/<>/gauge:state:REGEX(.*,(.*),.*)]"}
+Number Flukso_Water   "Current Water    [%.1f L/day]"   <water>  (gEnergy)   {mqtt="<[flukso:/sensor/<>/gauge:state:REGEX(.*,(.*),.*)]"}
 
-Number Flukso_Elec_Total  "Total Electricity [%.1f Wh]"   <energy>  (gEnergy)  {mqtt="<[flukso:/sensor/***REMOVED***/counter:state:REGEX(.*,(.*),.*)]"}
-Number Flukso_Gas_Total   "Total Gas [%.1f L]"     <fire>  (gEnergy) {mqtt="<[flukso:/sensor/***REMOVED***/counter:state:REGEX(.*,(.*),.*)]"}
-Number Flukso_Water_Total   "Total Water  [%.1f L]"   <water>   (gEnergy)   {mqtt="<[flukso:/sensor/***REMOVED***/counter:state:REGEX(.*,(.*),.*)]"}
+Number Flukso_Elec_Total  "Total Electricity [%.1f Wh]"   <energy>  (gEnergy)  {mqtt="<[flukso:/sensor/<>/counter:state:REGEX(.*,(.*),.*)]"}
+Number Flukso_Gas_Total   "Total Gas [%.1f L]"     <fire>  (gEnergy) {mqtt="<[flukso:/sensor/<>/counter:state:REGEX(.*,(.*),.*)]"}
+Number Flukso_Water_Total   "Total Water  [%.1f L]"   <water>   (gEnergy)   {mqtt="<[flukso:/sensor/<>/counter:state:REGEX(.*,(.*),.*)]"}
 
 Number Elec_Today  "Today Electricity [%.3f kWh]" <energy> (gEnergy)
 Number Gas_Today  "Today Gas [%.3f m3]" <fire> (gEnergy)
