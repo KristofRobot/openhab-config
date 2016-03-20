@@ -13,9 +13,7 @@ Items {
     // persist all items once a day and on every change and restore them from the db at startup
     * : strategy = everyDay, everyChange, restoreOnStartup
 
-    // additionally, persist all temperature and weather values every minute
+    // additionally, persist all flukso and weather values every minute
     Flukso_* : strategy = everyMinute
-    
-    // let's only store temperature values in rrd
-	Weather_Chart* : strategy = everyMinute
+    Weather_Chart* : strategy = everyMinute
 }
