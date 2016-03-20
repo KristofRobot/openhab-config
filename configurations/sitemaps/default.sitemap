@@ -1,0 +1,61 @@
+sitemap default label="House"
+{
+	Frame label="Energy Consumption" {
+      		Text item=Cost_Today label="Consumption [%.2f EUR]" icon="phone"
+   	}
+	Frame label="House" {
+		Group item=gSF label="Second Floor" icon="attic"
+		Group item=gFF label="First Floor" icon="firstfloor"
+		Group item=gGF label="Ground Floor" icon="groundfloor"
+		Group item=gGa label="Garage" icon="garage"	
+	}
+        Frame label="Energy" {
+		Group item=gEnergy label="Energy" icon="energy" 
+                Text item=Charts icon="energy" {
+                Frame {
+                                Switch item=E_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]
+                                Chart item=Energy_Chart period=h refresh=6000 visibility=[E_Chart_Period==0, E_Chart_Period=="Uninitialized"]
+                                Chart item=Energy_Chart period=D refresh=30000 visibility=[E_Chart_Period==1]
+                                Chart item=Energy_Chart period=W refresh=30000 visibility=[E_Chart_Period==2]
+                        }
+                }
+        }
+	Frame label="Climate" {
+		Text item=Climate icon="solarplant" {
+		Text item=CO2
+		Text item=CO2_T
+		Text item=Weather_Temperature
+		Frame {
+                                Switch item=Climate_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]
+                                Chart item=CO2 period=h refresh=6000 visibility=[Climate_Chart_Period==0, Climate_Chart_Period=="Uninitialized"]
+                                Chart item=CO2 period=D refresh=30000 visibility=[Climate_Chart_Period==1]
+                                Chart item=CO2 period=W refresh=30000 visibility=[Climate_Chart_Period==2]
+                        }
+		}
+	}
+	Frame label="Dust" {
+                Text item=Dust icon="solarplant" {
+                Text item=S_Dust01
+                Frame {
+                                Chart item=S_Dust01 period=h refresh=6000
+                        }
+                }
+        }
+	Frame label="Weather" {
+		Text item=Weather_Temperature valuecolor=[Weather_LastUpdate=="Uninitialized"="lightgray",Weather_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] {
+			Frame {
+				Text item=Weather_Temp_Max valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Weather_Temp_Min valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
+				Text item=Weather_Humidity
+				Text item=Weather_Humidex
+				Text item=Weather_LastUpdate visibility=[Weather_LastUpdate>30] valuecolor=[Weather_LastUpdate>120="orange", Weather_LastUpdate>300="red"]
+			}
+			Frame {
+				Switch item=Weather_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]
+				Chart item=Weather_Chart period=h refresh=6000 visibility=[Weather_Chart_Period==0, Weather_Chart_Period=="Uninitialized"]
+				Chart item=Weather_Chart period=D refresh=30000 visibility=[Weather_Chart_Period==1]
+				Chart item=Weather_Chart period=W refresh=30000 visibility=[Weather_Chart_Period==2]
+			}
+		}
+	}
+}

@@ -1,0 +1,87 @@
+//this import is crucial for type casting to work!!
+import org.openhab.core.library.types.*
+
+var Number elec_price=0.25   //per kWh
+var Number gas_price=0.7   //per m3
+var Number water_price=5.0   //per m3
+
+rule "Electricity conversion"
+    when
+        Item Flukso_Elec_Total changed
+    then
+        var Number tmp
+        var Number stop
+        var Number start
+
+        stop  = Flukso_Elec_Total.maximumSince(now.toDateMidnight).state as DecimalType
+        start = Flukso_Elec_Total.minimumSince(now.toDateMidnight).state as DecimalType
+
+        tmp = stop - start
+        postUpdate(Elec_Today, tmp/1000)
+        postUpdate(Elec_Cost_Today, tmp/1000*elec_price)
+
+end
+
+rule "Gas conversion"
+    when
+        Item Flukso_Gas_Total changed
+    then
+        var Number tmp
+        var Number stop
+        var Number start
+
+        stop  = Flukso_Gas_Total.maximumSince(now.toDateMidnight).state as DecimalType
+        start = Flukso_Gas_Total.minimumSince(now.toDateMidnight).state as DecimalType
+
+        tmp = stop - start
+        postUpdate(Gas_Today, tmp/1000)
+        postUpdate(Gas_Cost_Today, tmp/1000*gas_price)
+
+end
+
+rule "Water conversion"
+    when
+        Item Flukso_Water_Total changed
+    then
+        var Number tmp
+        var Number stop
+        var Number start
+
+        stop  = Flukso_Water_Total.maximumSince(now.toDateMidnight).state as DecimalType
+        start = Flukso_Water_Total.minimumSince(now.toDateMidnight).state as DecimalType
+
+        tmp = stop - start
+        postUpdate(Water_Today, tmp)
+        postUpdate(Water_Cost_Today, tmp/1000*water_price)
+
+end
+
+rule "Cost conversion"
+    when
+        Item Water_Cost_Today changed or
+        Item Gas_Cost_Today changed or
+        Item Elec_Cost_Today changed
+    then
+        var Number water=0
+        var Number elec=0
+        var Number gas=0
+
+        if (Water_Cost_Today.state instanceof DecimalType){
+            water = Water_Cost_Today.state as DecimalType
+        } else {
+            water = 0
+        }
+        if (Gas_Cost_Today.state instanceof DecimalType){
+            gas = Gas_Cost_Today.state as DecimalType
+        } else {
+            gas = 0
+        }
+        if (Elec_Cost_Today.state instanceof DecimalType){
+            elec = Elec_Cost_Today.state as DecimalType
+        } else {
+            elec = 0
+        }
+
+        postUpdate(Cost_Today, water+gas+elec)
+
+end
