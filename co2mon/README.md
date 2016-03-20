@@ -10,6 +10,6 @@ Based on https://hackaday.io/project/5301-reverse-engineering-a-low-cost-usb-co-
     sudo cp 90-co2mini.rules /etc/udev/rules.d/90-co2mini.rules 
     /etc/init.d/co2mon.py /dev/co2mini >> /dev/null &
     
-Add following the last line to /etc/rc.local to make it boot safe
+Add the last line to ``/etc/rc.local`` to make it boot safe
 
 
