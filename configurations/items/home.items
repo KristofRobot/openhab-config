@@ -6,6 +6,9 @@ Group gGa           (All)
 Group Status      (All)
 Group gOut          (All)
 Group gEnergy   (All)
+Group gSensors   (All)
+
+Group gBattery      (All)
 
 Group GF_Office      "Office"          <office>      (gGF)
 Group GF_Guest          "Guest Room"      <bedroom>      (gGF)
@@ -47,16 +50,16 @@ Number Water_Cost_Today  "Cost Water [%.2f EUR]" <water> (gEnergy)
 Number Cost_Today  "Cost Total [%.2f EUR]"  (gEnergy) 
 
 /* MySensors sensors */
-Number  S_Hum01              "Humidity [%.1f %%Rh]"   <water>         (GF_Guest)        {mysensors="3;0;V_HUM"}
-Number  S_Temp01           "Temperature [%.1f °C]"     <temperature>   (GF_Guest)     {mysensors="3;1;V_TEMP"}
-Number  S_Hum02              "Humidity [%.1f %%Rh]"   <water>         (SF_Bed)        {mysensors="5;0;V_HUM"}
-Number  S_Temp02           "Temperature [%.1f °C]"     <temperature>   (SF_Bed)     {mysensors="5;1;V_TEMP"}
-Number  S_Bat02           "Battery [%.0f %%]"     <energy>   (SF_Bed)     {mysensors="5;255;I_BATTERY_LEVEL"}
-Number  S_Hum03              "Humidity [%.1f %%Rh]"   <water>         (GF_Office)        {mysensors="0;0;V_HUM"}
-Number  S_Temp03           "Temperature [%.1f °C]"     <temperature>   (GF_Office)     {mysensors="0;1;V_TEMP"}
-Number  S_Dust01           "Dust [%.0f pcs/283ml]"     <fire>   (GF_Office)     {mysensors="4;0;V_LEVEL"}
+Number  S_Hum01              "Humidity Guest [%.1f %%Rh]"   <water>         (GF_Guest,gSensors)        {mysensors="3;0;V_HUM"}
+Number  S_Temp01           "Temperature Guest [%.1f °C]"     <temperature>   (GF_Guest,gSensors)     {mysensors="3;1;V_TEMP"}
+Number  S_Hum02              "Humidity Bed [%.1f %%Rh]"   <water>         (SF_Bed,gSensors)        {mysensors="5;0;V_HUM"}
+Number  S_Temp02           "Temperature Bed [%.1f °C]"     <temperature>   (SF_Bed,gSensors)     {mysensors="5;1;V_TEMP"}
+Number  S_Bat02           "Battery Bed [%.0f %%]"     <energy>   (SF_Bed,gBattery)     {mysensors="5;255;I_BATTERY_LEVEL"}
+Number  S_Hum03              "Humidity Office [%.1f %%Rh]"   <water>         (GF_Office,gSensors)        {mysensors="0;0;V_HUM"}
+Number  S_Temp03           "Temperature Office [%.1f °C]"     <temperature>   (GF_Office,gSensors)     {mysensors="0;1;V_TEMP"}
+Number  S_Dust01           "Dust Office [%.0f pcs/283ml]"     <fire>   (GF_Office,gSensors)     {mysensors="4;0;V_LEVEL"}
 
 /* CO2 monitor */
 Number Climate_Chart_Period             "Chart Period"
-Number  CO2              "CO2 [%.0f ppm]"   <fire>         (FF_Living, Climate)       
-Number  CO2_T           "Temperature [%.1f °C]"     <temperature>   (Temperature,FF_Living, Climate, Weather_Chart)
+Number  CO2              "CO2 [%.0f ppm]"   <fire>         (FF_Living, Climate,gSensors)       
+Number  CO2_T           "Temperature [%.1f °C]"     <temperature>   (Temperature,FF_Living, gSensors)

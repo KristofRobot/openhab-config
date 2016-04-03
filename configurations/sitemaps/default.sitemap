@@ -1,7 +1,16 @@
 sitemap default label="House"
 {
-    Frame label="Energy Consumption" {
-        Text item=Cost_Today label="Consumption [%.2f EUR]" icon="phone"
+    Frame label="Sensors" {
+        Group item=gSensors label="Sensors" icon="temperature-max"
+        Text item=Battery label="Battery" icon="energy" {
+            Text item=S_Bat02 valuecolor=[<15="red",>=15="orange",>=50="green"]
+            Frame {
+                Switch item=Climate_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]
+                Chart item=S_Bat02 period=h refresh=6000 visibility=[Climate_Chart_Period==0, Climate_Chart_Period=="Uninitialized"]
+                Chart item=S_Bat02 period=D refresh=30000 visibility=[Climate_Chart_Period==1]
+                Chart item=S_Bat02 period=W refresh=30000 visibility=[Climate_Chart_Period==2]
+            }
+        }
     }
     Frame label="House" {
         Group item=gSF label="Second Floor" icon="attic"
@@ -10,6 +19,7 @@ sitemap default label="House"
         Group item=gGa label="Garage" icon="garage"     
     }
     Frame label="Energy" {
+        Text item=Cost_Today label="Consumption [%.2f EUR]" icon="phone"
         Group item=gEnergy label="Energy" icon="energy" 
         Group item=Flukso label="Flukso" icon="energy"
         Text item=Charts icon="energy" {
@@ -23,7 +33,7 @@ sitemap default label="House"
     }
     Frame label="Climate" {
         Text item=Climate icon="solarplant" {
-            Text item=CO2 valuecolor=[>=800="orange",<800="green",>=1200="red"]
+            Text item=CO2 valuecolor=[<800="green",>=800="orange",>=1200="red"]
             Text item=CO2_T
             Frame {
                 Switch item=Climate_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]
