@@ -2,13 +2,16 @@ sitemap default label="House"
 {
     Frame label="Sensors" {
         Group item=gSensors label="Sensors" icon="temperature-max"
-        Text item=Battery label="Battery" icon="energy" {
-            Text item=S_Bat02 valuecolor=[<15="red",>=15="orange",>=50="green"]
+        Text item=gBattery label="Battery" icon="energy" {
+            Text item=S_Bat01 valuecolor=[<15="red",<50="orange",>=50="green"]
+            Text item=S_Bat01_LastUpdate valuecolor=[S_Bat01_LastUpdate=="Uninitialized"="lightgray",S_Bat01_LastUpdate>300="lightgray",>30="orange",<=30="green"]
+            Text item=S_Bat02 valuecolor=[<15="red",<50="orange",>=50="green"]
+            Text item=S_Bat02_LastUpdate valuecolor=[S_Bat02_LastUpdate=="Uninitialized"="lightgray",S_Bat02_LastUpdate>300000="lightgray",>30000="orange",<=30000="green"]
             Frame {
                 Switch item=Climate_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]
-                Chart item=S_Bat02 period=h refresh=6000 visibility=[Climate_Chart_Period==0, Climate_Chart_Period=="Uninitialized"]
-                Chart item=S_Bat02 period=D refresh=30000 visibility=[Climate_Chart_Period==1]
-                Chart item=S_Bat02 period=W refresh=30000 visibility=[Climate_Chart_Period==2]
+                Chart item=gBattery period=h refresh=6000 visibility=[Climate_Chart_Period==0, Climate_Chart_Period=="Uninitialized"]
+                Chart item=gBattery period=D refresh=30000 visibility=[Climate_Chart_Period==1]
+                Chart item=gBattery period=W refresh=30000 visibility=[Climate_Chart_Period==2]
             }
         }
     }
@@ -33,7 +36,7 @@ sitemap default label="House"
     }
     Frame label="Climate" {
         Text item=Climate icon="solarplant" {
-            Text item=CO2 valuecolor=[<800="green",>=800="orange",>=1200="red"]
+            Text item=CO2 valuecolor=[<800="green",<1200="orange",>=1200="red"]
             Text item=CO2_T
             Frame {
                 Switch item=Climate_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]

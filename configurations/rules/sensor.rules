@@ -1,0 +1,17 @@
+//this import is crucial for type casting to work!!
+import org.openhab.core.library.types.*
+
+// Creates an item that stores the last update time of this item
+rule "Records last sensor update time"
+when
+  Item S_Bat01 received update
+then
+  postUpdate(S_Bat01_LastUpdate, new DateTimeType())
+end
+
+rule "Records last sensor update time"
+when
+  Item S_Bat02 received update
+then
+  postUpdate(S_Bat02_LastUpdate, new DateTimeType())
+end
