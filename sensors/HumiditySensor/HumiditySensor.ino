@@ -35,7 +35,7 @@
 #define MY_RADIO_NRF24
 //#define MY_RADIO_RFM69
 
-#define MY_NODE_ID 5 //manual node id
+#define MY_NODE_ID 3 //manual node id
 //#define MY_DISABLED_SERIAL //disable serial
 
 #include <SPI.h>
@@ -48,9 +48,10 @@
 unsigned long SLEEP_TIME = 30000; // Sleep time between reads (in milliseconds)
 
 int BATTERY_SENSE_PIN = A0;  // select the input pin for the battery sense point
-int oldBatteryPcnt = 0;
 int SAMPLES=100; //how many samples to take for voltage reading
-const long InternalReferenceVoltage = 1090L;  // Detected using the method described at http://arduino.cc/forum/index.php/topic,38119.0.html
+const long InternalReferenceVoltage = 1080L;  // Detected using the method described at http://arduino.cc/forum/index.php/topic,38119.0.html
+//3 - 1080
+//5 - 1095
 const int MIN_BATTERY = 700; //2 li Ion batteries, minimum is 7V
 const int MAX_BATTERY = 840; //2 li Ion batteries, max is 8.4V
 
@@ -96,14 +97,12 @@ void loop()
   Vcc=Vcc/SAMPLES; //get average from SAMPLES readings; dont care about truncation
   currentVoltage = map(currentVoltage/SAMPLES, 0, 1023, 0, Vcc);
   Serial.println(Vcc);
-  Serial.println(currentVoltage);
+  Serial.println(currentVoltage*2);  //using even divider, so need to multiply by 2
   
-  int batteryPcnt = map(currentVoltage*2,MIN_BATTERY, MAX_BATTERY, 0, 100); //convert from voltage to percentage; using even divider, so need to multiply by 2
+  int batteryPcnt = constrain(map(currentVoltage*2,MIN_BATTERY, MAX_BATTERY, 0, 100),0,100); //convert from voltage to percentage; constrain to 0-100 range
   Serial.println(batteryPcnt);
-  if (oldBatteryPcnt != batteryPcnt) {
-     sendBatteryLevel(batteryPcnt);
-     oldBatteryPcnt = batteryPcnt;
-   }
+  //always send batteryPcnt; use this as heartbeat
+  sendBatteryLevel(batteryPcnt);
   
   delay(dht.getMinimumSamplingPeriod());
 
