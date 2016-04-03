@@ -1,3 +1,4 @@
 *~
 configurations/users.cfg
 configurations/openhab.cfg
+configurations/items/flukso.items
