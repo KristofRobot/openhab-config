@@ -59,9 +59,12 @@ Number  S_Bat02           "Battery Bed [%.0f %%]"     <energy>   (SF_Bed,gBatter
 Number  S_Hum03              "Humidity Office [%.1f %%Rh]"   <water>         (GF_Office,gSensors)        {mysensors="0;0;V_HUM"}
 Number  S_Temp03           "Temperature Office [%.1f °C]"     <temperature>   (GF_Office,gSensors)     {mysensors="0;1;V_TEMP"}
 Number  S_Dust01           "Dust Office [%.0f pcs/283ml]"     <fire>   (GF_Office,gSensors)     {mysensors="4;0;V_LEVEL"}
+Number  S_Temp04           "Garage Door [%.0f]"     <temperature>   (Ga_Garage,gSensors)     {mysensors="6;0;V_TEMP"}
+Number  S_Bat04           "Battery Garage [%.0f %%]"     <energy>   (Ga_Garage,gBattery)     {mysensors="6;255;I_BATTERY_LEVEL"}
 
 DateTime S_Bat01_LastUpdate		"Guest Last Update [%1$tm/%1$td %1$tH:%1$tM:%1$tS]"	<clock>
 DateTime S_Bat02_LastUpdate		"Bed Last Update [%1$tm/%1$td %1$tH:%1$tM:%1$tS]"	<clock>
+DateTime S_Bat04_LastUpdate		"Garage Last Update [%1$tm/%1$td %1$tH:%1$tM:%1$tS]"	<clock>
 
 /* CO2 monitor */
 Number Climate_Chart_Period             "Chart Period"

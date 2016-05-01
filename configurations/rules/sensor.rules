@@ -15,3 +15,10 @@ when
 then
   postUpdate(S_Bat02_LastUpdate, new DateTimeType())
 end
+
+rule "Records last sensor update time"
+when
+  Item S_Bat04 received update
+then
+  postUpdate(S_Bat04_LastUpdate, new DateTimeType())
+end
