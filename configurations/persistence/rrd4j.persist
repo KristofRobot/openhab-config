@@ -14,6 +14,6 @@ Items {
     * : strategy = everyMinute, everyChange, restoreOnStartup
 
     // additionally, persist all flukso and weather values every minute
-    Flukso_* : strategy = everyMinute
+    //Flukso_* : strategy = everyMinute
     //Weather_Chart* : strategy = everyMinute
 }
