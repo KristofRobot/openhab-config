@@ -7,7 +7,8 @@ var Number water_price=5.0   //per m3
 
 rule "Electricity conversion"
     when
-        Item Flukso_Elec_Total changed
+        Item Flukso_Elec_Total changed or
+        Time is midnight
     then
         var Number tmp
         var Number stop
@@ -24,7 +25,8 @@ end
 
 rule "Gas conversion"
     when
-        Item Flukso_Gas_Total changed
+        Item Flukso_Gas_Total changed or
+        Time is midnight
     then
         var Number tmp
         var Number stop
@@ -41,7 +43,8 @@ end
 
 rule "Water conversion"
     when
-        Item Flukso_Water_Total changed
+        Item Flukso_Water_Total changed or
+        Time is midnight
     then
         var Number tmp
         var Number stop
