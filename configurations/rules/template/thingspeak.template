@@ -1,0 +1,9 @@
+var String THINGSPEAK_URL="https://api.thingspeak.com/update?key=[KEY]"
+
+// Creates an item that stores the last update time of this item
+rule "Send temperature to thingspeak"
+when
+  Item S_Temp04 received update
+then
+  sendHttpGetRequest(THINGSPEAK_URL + "&field1=" + S_Temp04.state) 
+end
