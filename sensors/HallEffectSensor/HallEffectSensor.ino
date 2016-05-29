@@ -19,6 +19,7 @@
  *******************************
  *
  * REVISION HISTORY
+ * Version 0.2 - Turn of hall effect sensor in between measurements to save power
  * Version 0.1 - Based on humidity sensor by Henrik EKblad
  * 
  * DESCRIPTION
@@ -41,6 +42,7 @@
 #include <DHT.h>  
 
 #define CHILD_ID_HALL 0
+int HALL_SENSOR_POWER_PIN = 4;
 int HALL_SENSOR_ANALOG_PIN = A5;
 unsigned long SLEEP_TIME = 30000; // Sleep time between reads (in milliseconds)
 
@@ -57,8 +59,8 @@ const long InternalReferenceVoltage = 1080L;  // Detected using the method descr
 //const int MAX_BATTERY = 840; //6 NiMH cell pack, max is 8.4V  
 
 //NiMH - note: discharge curve of NiMH is almost flat at 1.2V for most of the time - i.e. voltage measurement is not a very good indicator
-const int MIN_BATTERY = 440; //4 NiMH cell pack, minimum is 6.6V (in theory 0.9V per cell, i.e. 5.4V, but since 6 in series, be conservative)
-const int MAX_BATTERY = 560; //4 NiMH cell pack, max is 8.4V  
+const int MIN_BATTERY = 480; //4 NiMH eneloop cell pack, minimum is 1.0V (at low power, 1.2V is near minimum) - 
+const int MAX_BATTERY = 560; //4 NiMH eneloop cell pack, max is 1.4, quickly going to 1.3
 
 //abusing temp for now
 MyMessage msgHall(CHILD_ID_HALL, V_TEMP);
@@ -67,6 +69,9 @@ MyMessage msgHall(CHILD_ID_HALL, V_TEMP);
 void setup()  
 { 
   //Serial.begin(115200);
+  pinMode(HALL_SENSOR_POWER_PIN, OUTPUT);
+  //disable power
+  digitalWrite(HALL_SENSOR_POWER_PIN, LOW);
 }
 
 void presentation()  
@@ -81,6 +86,10 @@ void presentation()
 
 void loop()      
 {  
+  //enable sensor
+  digitalWrite(HALL_SENSOR_POWER_PIN, HIGH);
+  sleep(100);
+
   //get battery voltage - battery connected through even voltage divider of 2*10K
   //oversampling (seems overkill, but doing it anyway)
   long Vcc=0L;
@@ -90,17 +99,20 @@ void loop()
         hallSensorValue += analogRead(HALL_SENSOR_ANALOG_PIN); 
         delay(10); 
   }
+  //disable sensor
+  digitalWrite(HALL_SENSOR_POWER_PIN, LOW);
+
   Vcc=Vcc/SAMPLES; //get average from SAMPLES readings; dont care about truncation
-  Serial.println(Vcc);
+  //Serial.println(Vcc);
   
   int batteryPcnt = constrain(map(Vcc,MIN_BATTERY, MAX_BATTERY, 0, 100),0,100); //convert from voltage to percentage; constrain to 0-100 range
-  Serial.println(batteryPcnt);
+  //Serial.println(batteryPcnt);
   //always send batteryPcnt; use this as heartbeat
   sendBatteryLevel(batteryPcnt);
   
   hallSensorValue=hallSensorValue/SAMPLES;
   send(msgHall.set(hallSensorValue, 1));
-  Serial.println(hallSensorValue);
+  //Serial.println(hallSensorValue);
   
   sleep(SLEEP_TIME); //power down, defined in MySensorCore.cpp - akin to lowpower.h power down routine
 }
