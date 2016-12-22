@@ -1,7 +1,7 @@
 /* Flukso */
 Group Flukso
 
-Number Flukso_Elec   "Current Electricity [%.1f W]"   <energy>  (Energy_Chart, Flukso) {mqtt="<[flukso:/sensor/<>/gauge:state:REGEX(.*,(.*),.*)]"}
+Number Flukso_Elec   "Current Electricity [%.1f W]"   <energy>  (Flukso) {mqtt="<[flukso:/sensor/<>/gauge:state:REGEX(.*,(.*),.*)]"}
 Number Flukso_Gas   "Current Gas [%.1f L/day]"    <fire>  (Flukso) {mqtt="<[flukso:/sensor/<>/gauge:state:REGEX(.*,(.*),.*)]"}
 Number Flukso_Water   "Current Water    [%.1f L/day]"   <water>  (Flukso)   {mqtt="<[flukso:/sensor/<>/gauge:state:REGEX(.*,(.*),.*)]"}
 

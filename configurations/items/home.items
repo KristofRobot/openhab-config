@@ -36,8 +36,8 @@ Group Dust
 Group Charts
 
 /* Energy */
-Group Energy_Chart
 Number E_Chart_Period             "Chart Period"
+Number E_Chart_Select             "Chart Selection"
 
 Number Elec_Today  "Today Electricity [%.3f kWh]" <energy> (gEnergy)
 Number Gas_Today  "Today Gas [%.3f m3]" <fire> (gEnergy)
@@ -58,7 +58,11 @@ Number  S_Temp02           "Temperature Bed [%.1f °C]"     <temperature>   (SF_
 Number  S_Bat02           "Battery Bed [%.0f %%]"     <energy>   (SF_Bed,gBattery)     {mysensors="5;255;I_BATTERY_LEVEL"}
 Number  S_Hum03              "Humidity Office [%.1f %%Rh]"   <water>         (GF_Office,gSensors)        {mysensors="0;0;V_HUM"}
 Number  S_Temp03           "Temperature Office [%.1f °C]"     <temperature>   (GF_Office,gSensors)     {mysensors="0;1;V_TEMP"}
-Number  S_Dust01           "Dust Office [%.0f pcs/283ml]"     <fire>   (GF_Office,gSensors)     {mysensors="4;0;V_LEVEL"}
+Number  S_Hum06              "Humidity Office b [%.1f %%Rh]"   <water>         (GF_Office,gSensors)        {mysensors="0;2;V_HUM"}
+Number  S_Temp06           "Temperature Office b [%.1f °C]"     <temperature>   (GF_Office,gSensors)     {mysensors="0;3;V_TEMP"}
+Number  S_Hum05              "Humidity Office c [%.1f %%Rh]"   <water>         (GF_Office,gSensors)        {mysensors="0;4;V_HUM"}
+Number  S_Temp05           "Temperature Office c [%.1f °C]"     <temperature>   (GF_Office,gSensors)     {mysensors="0;5;V_TEMP"}
+Number  S_Dust01           "Dust Office [%.0f pcs/283ml]"     <fire>   (GF_Office,gSensors)     {mysensors="4;4;V_LEVEL"}
 Number  S_Temp04           "Garage Door [%.0f]"     <temperature>   (Ga_Garage,gSensors)     {mysensors="6;0;V_TEMP"}
 Number  S_Bat04           "Battery Garage [%.0f %%]"     <energy>   (Ga_Garage,gBattery)     {mysensors="6;255;I_BATTERY_LEVEL"}
 
