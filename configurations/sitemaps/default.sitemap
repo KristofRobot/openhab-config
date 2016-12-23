@@ -1,28 +1,33 @@
 sitemap default label="House"
 {
     Frame label="Status" {
-        Text item=Flukso_Elec label="Current Electricity [%.1f W]"  icon="energy"
-        Text item=Flukso_Gas label="Current Gas [%.1f L/day]"  icon="fire"
-        Text item=Flukso_Water label="Current Water [%.1f L/day]"  icon="water"
+        Text item=Flukso_Elec label="Current Electricity [%.1f W]"  icon="energy" valuecolor=[Flukso_Elec_LastUpdate=="Uninitialized"="lightgray",Flukso_Elec_LastUpdate>300="lightgray",Flukso_Elec_LastUpdate>30="orange",Flukso_Elec_LastUpdate<=30="green"]
+        Text item=Flukso_Gas label="Current Gas [%.1f L/day]"  icon="fire" valuecolor=[Flukso_Gas_LastUpdate=="Uninitialized"="lightgray",Flukso_Gas_LastUpdate>300="lightgray",Flukso_Gas_LastUpdate>30="orange",Flukso_Gas_LastUpdate<=30="green"]
+        Text item=Flukso_Water label="Current Water [%.1f L/day]"  icon="water" valuecolor=[Flukso_Water_LastUpdate=="Uninitialized"="lightgray",Flukso_Water_LastUpdate>300="lightgray",Flukso_Water_LastUpdate>30="orange",Flukso_Water_LastUpdate<=30="green"]
         Text item=Cost_Today label="Consumption [%.2f EUR]" icon="phone" {
              Text item=Elec_Cost_Today label="Today Electricity [%.2f EUR]" icon="phone"
              Text item=Gas_Cost_Today label="Today Gas [%.2f EUR]" icon="phone"
              Text item=Water_Cost_Today label="Today Water [%.2f EUR]" icon="phone"
+             Text item=Flukso_Elec_LastUpdate valuecolor=["Uninitialized"="lightgray",>300="lightgray",>30="orange",<=30="green"]
+             Text item=Flukso_Gas_LastUpdate valuecolor=["Uninitialized"="lightgray",>300="lightgray",>30="orange",<=30="green"]
+             Text item=Flukso_Water_LastUpdate valuecolor=["Uninitialized"="lightgray",>300="lightgray",>30="orange",<=30="green"]
 	}
-        Text item=S_Temp04 label="Garage Door [%s]" icon="door-open" valuecolor=[<250="green",>=250="red"] {
+        Text item=S_Hall01 label="Garage Door [%s]" icon="door-open" valuecolor=[S_Hall01_LastUpdate=="Uninitialized"="lightgray",S_Hall01_LastUpdate>300="lightgray",S_Hall01_LastUpdate>30="orange",S_Hall01_LastUpdate<=30="green" {
             Text item=S_Bat04 valuecolor=[<15="red",<50="orange",>=50="green"]
-            Text item=S_Bat04_LastUpdate valuecolor=[S_Bat04_LastUpdate=="Uninitialized"="lightgray",S_Bat04_LastUpdate>300="lightgray",>30="orange",<=30="green"]
-            Text item=S_Temp04 icon="door-open" valuecolor=[<300="green",>=300="red"]
+            Text item=S_Bat04_LastUpdate valuecolor=["Uninitialized"="lightgray",>300="lightgray",>30="orange",<=30="green"]
+            Text item=S_Hall01_LastUpdate valuecolor=["Uninitialized"="lightgray",>300="lightgray",>30="orange",<=30="green"]
+            Text item=S_Hall01 icon="door-open" valuecolor=[<300="green",>=300="red"]
             Frame {
                 Switch item=Climate_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]
-                Chart item=S_Temp04 period=h refresh=6000 visibility=[Climate_Chart_Period==0, Climate_Chart_Period=="Uninitialized"]
-                Chart item=S_Temp04 period=D refresh=30000 visibility=[Climate_Chart_Period==1]
-                Chart item=S_Temp04 period=W refresh=30000 visibility=[Climate_Chart_Period==2]
+                Chart item=S_Hall01 period=h refresh=6000 visibility=[Climate_Chart_Period==0, Climate_Chart_Period=="Uninitialized"]
+                Chart item=S_Hall01 period=D refresh=30000 visibility=[Climate_Chart_Period==1]
+                Chart item=S_Hall01 period=W refresh=30000 visibility=[Climate_Chart_Period==2]
             }
         }
     }
     Frame label="Sensors" {
         Group item=gSensors label="Sensors" icon="temperature-max"
+        Group item=gUpdate label="Updates" icon="clock"
         Text item=gBattery label="Battery" icon="energy" {
             Text item=S_Bat01 valuecolor=[<15="red",<50="orange",>=50="green"]
             Text item=S_Bat01_LastUpdate valuecolor=[S_Bat01_LastUpdate=="Uninitialized"="lightgray",S_Bat01_LastUpdate>300="lightgray",>30="orange",<=30="green"]
@@ -64,6 +69,7 @@ sitemap default label="House"
     }
     Frame label="Climate" {
         Text item=Climate icon="solarplant" {
+            Text item=S_CO2_LastUpdate valuecolor=["Uninitialized"="lightgray",>300="lightgray",>30="orange",<=30="green"]
             Text item=CO2 valuecolor=[<800="green",<1200="orange",>=1200="red"]
             Text item=CO2_T
             Frame {

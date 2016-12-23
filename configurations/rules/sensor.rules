@@ -2,23 +2,37 @@
 import org.openhab.core.library.types.*
 
 // Creates an item that stores the last update time of this item
-rule "Records last sensor update time"
+rule "Records last bat01 sensor update time"
 when
   Item S_Bat01 received update
 then
   postUpdate(S_Bat01_LastUpdate, new DateTimeType())
 end
 
-rule "Records last sensor update time"
+rule "Records last bat02 sensor update time"
 when
   Item S_Bat02 received update
 then
   postUpdate(S_Bat02_LastUpdate, new DateTimeType())
 end
 
-rule "Records last sensor update time"
+rule "Records last bat04 sensor update time"
 when
   Item S_Bat04 received update
 then
   postUpdate(S_Bat04_LastUpdate, new DateTimeType())
+end
+
+rule "Records last hall01 sensor update time"
+when
+  Item S_Hall01 received update
+then
+  postUpdate(S_Hall01_LastUpdate, new DateTimeType())
+end
+
+rule "Records last CO2 sensor update time"
+when
+  Item CO2 received update
+then
+  postUpdate(S_CO2_LastUpdate, new DateTimeType())
 end

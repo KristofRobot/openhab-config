@@ -88,3 +88,25 @@ rule "Cost conversion"
         postUpdate(Cost_Today, water+gas+elec)
 
 end
+
+// Creates an item that stores the last update time of this item
+rule "Records last Elec update time"
+when
+  Item Flukso_Elec received update
+then
+  postUpdate(Flukso_Elec_LastUpdate, new DateTimeType())
+end
+
+rule "Records last Gas update time"
+when
+  Item Flukso_Gas received update
+then
+  postUpdate(Flukso_Gas_LastUpdate, new DateTimeType())
+end
+
+rule "Records last Water update time"
+when
+  Item Flukso_Water received update
+then
+  postUpdate(Flukso_Water_LastUpdate, new DateTimeType())
+end

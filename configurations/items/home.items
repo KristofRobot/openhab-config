@@ -10,6 +10,8 @@ Group gSensors   (All)
 
 Group gBattery      (All)
 
+Group gUpdate      (All)
+
 Group GF_Office      "Office"          <office>      (gGF)
 Group GF_Guest          "Guest Room"      <bedroom>      (gGF)
 Group GF_Toilet      "Toilet"           <bath   >      (gGF)
@@ -63,12 +65,14 @@ Number  S_Temp06           "Temperature Office b [%.1f °C]"     <temperature>  
 Number  S_Hum05              "Humidity Office c [%.1f %%Rh]"   <water>         (GF_Office,gSensors)        {mysensors="0;4;V_HUM"}
 Number  S_Temp05           "Temperature Office c [%.1f °C]"     <temperature>   (GF_Office,gSensors)     {mysensors="0;5;V_TEMP"}
 Number  S_Dust01           "Dust Office [%.0f pcs/283ml]"     <fire>   (GF_Office,gSensors)     {mysensors="4;4;V_LEVEL"}
-Number  S_Temp04           "Garage Door [%.0f]"     <temperature>   (Ga_Garage,gSensors)     {mysensors="6;0;V_TEMP"}
+Number  S_Hall01           "Garage Door [%.0f]"     <temperature>   (Ga_Garage,gSensors)     {mysensors="6;0;V_TEMP"}
 Number  S_Bat04           "Battery Garage [%.0f %%]"     <energy>   (Ga_Garage,gBattery)     {mysensors="6;255;I_BATTERY_LEVEL"}
 
-DateTime S_Bat01_LastUpdate		"Guest Last Update [%1$tm/%1$td %1$tH:%1$tM:%1$tS]"	<clock>
-DateTime S_Bat02_LastUpdate		"Bed Last Update [%1$tm/%1$td %1$tH:%1$tM:%1$tS]"	<clock>
-DateTime S_Bat04_LastUpdate		"Garage Last Update [%1$tm/%1$td %1$tH:%1$tM:%1$tS]"	<clock>
+DateTime S_Bat01_LastUpdate		"Guest Last Update [%1$tm/%1$td %1$tH:%1$tM:%1$tS]"	<clock> (gUpdate)
+DateTime S_Bat02_LastUpdate		"Bed Last Update [%1$tm/%1$td %1$tH:%1$tM:%1$tS]"	<clock> (gUpdate)
+DateTime S_Bat04_LastUpdate		"Garage Battery Last Update [%1$tm/%1$td %1$tH:%1$tM:%1$tS]"	<clock> (gUpdate)
+DateTime S_Hall01_LastUpdate	"Garage Door Last Update [%1$tm/%1$td %1$tH:%1$tM:%1$tS]"	<clock> (gUpdate)
+DateTime S_CO2_LastUpdate	"CO2 Last Update [%1$tm/%1$td %1$tH:%1$tM:%1$tS]"	<clock> (gUpdate)
 
 /* CO2 monitor */
 Number Climate_Chart_Period             "Chart Period"

@@ -9,3 +9,6 @@ Number Flukso_Elec_Total  "Total Electricity [%.1f Wh]"   <energy>  (Flukso)  {m
 Number Flukso_Gas_Total   "Total Gas [%.1f L]"     <fire>  (Flukso) {mqtt="<[flukso:/sensor/<>/counter:state:REGEX(.*,(.*),.*)]"}
 Number Flukso_Water_Total   "Total Water  [%.1f L]"   <water>   (Flukso)   {mqtt="<[flukso:/sensor/<>/counter:state:REGEX(.*,(.*),.*)]"}
 
+DateTime Flukso_Elec_LastUpdate		"Electricity Last Update [%1$tm/%1$td %1$tH:%1$tM:%1$tS]"	<clock> (gUpdate)
+DateTime Flukso_Gas_LastUpdate		"Gas Last Update [%1$tm/%1$td %1$tH:%1$tM:%1$tS]"	<clock> (gUpdate)
+DateTime Flukso_Water_LastUpdate		"Water Last Update [%1$tm/%1$td %1$tH:%1$tM:%1$tS]"	<clock> (gUpdate)
