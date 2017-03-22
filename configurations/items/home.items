@@ -65,6 +65,7 @@ Number  S_Temp06           "Temperature Office b [%.1f °C]"     <temperature>  
 Number  S_Hum05              "Humidity Office c [%.1f %%Rh]"   <water>         (GF_Office,gSensors)        {mysensors="0;4;V_HUM"}
 Number  S_Temp05           "Temperature Office c [%.1f °C]"     <temperature>   (GF_Office,gSensors)     {mysensors="0;5;V_TEMP"}
 Number  S_Dust01           "Dust Office [%.0f pcs/283ml]"     <fire>   (GF_Office,gSensors)     {mysensors="4;4;V_LEVEL"}
+Number  lastHall01
 Number  S_Hall01           "Garage Door [%.0f]"     <temperature>   (Ga_Garage,gSensors)     {mysensors="6;0;V_TEMP"}
 Number  S_Bat04           "Battery Garage [%.0f %%]"     <energy>   (Ga_Garage,gBattery)     {mysensors="6;255;I_BATTERY_LEVEL"}
 
@@ -78,3 +79,6 @@ DateTime S_CO2_LastUpdate	"CO2 Last Update [%1$tm/%1$td %1$tH:%1$tM:%1$tS]"	<clo
 Number Climate_Chart_Period             "Chart Period"
 Number  CO2              "CO2 [%.0f ppm]"   <fire>         (FF_Living, Climate,gSensors)       
 Number  CO2_T           "Temperature [%.1f °C]"     <temperature>   (Temperature,FF_Living, gSensors)
+
+/* Local CPU temp */
+Number System_Temperature_CPU "OpenHAB CPU temperature [%.1f °C]" <temperature> { exec="<[cat /sys/class/thermal/thermal_zone0/temp:30000:JS(milli.js)]" }

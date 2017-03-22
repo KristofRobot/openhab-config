@@ -12,6 +12,7 @@ sitemap default label="House"
              Text item=Flukso_Gas_LastUpdate valuecolor=["Uninitialized"="lightgray",>300="lightgray",>30="orange",<=30="green"]
              Text item=Flukso_Water_LastUpdate valuecolor=["Uninitialized"="lightgray",>300="lightgray",>30="orange",<=30="green"]
 	}
+        Text item=System_Temperature_CPU
         Text item=S_Hall01 label="Garage Door [%s]" icon="door-open" valuecolor=[S_Hall01_LastUpdate=="Uninitialized"="lightgray",S_Hall01_LastUpdate>300="lightgray",S_Hall01_LastUpdate>30="orange",S_Hall01_LastUpdate<=30="green" {
             Text item=S_Bat04 valuecolor=[<15="red",<50="orange",>=50="green"]
             Text item=S_Bat04_LastUpdate valuecolor=["Uninitialized"="lightgray",>300="lightgray",>30="orange",<=30="green"]
@@ -22,6 +23,24 @@ sitemap default label="House"
                 Chart item=S_Hall01 period=h refresh=6000 visibility=[Climate_Chart_Period==0, Climate_Chart_Period=="Uninitialized"]
                 Chart item=S_Hall01 period=D refresh=30000 visibility=[Climate_Chart_Period==1]
                 Chart item=S_Hall01 period=W refresh=30000 visibility=[Climate_Chart_Period==2]
+            }
+        }
+    }
+    Frame label="Energy" {
+        Group item=gEnergy label="Energy" icon="energy"
+        Group item=Flukso label="Flukso" icon="energy"
+        Text item=Charts icon="energy" {
+            Frame label="Chart" {
+                Switch item=E_Chart_Period label="Chart Period" mappings=[0="Electricity Hour", 1="Gas Hour", 2="Water Hour",3="Electricity Day", 4="Gas Day", 5="Water Day", 6="Electricity Week", 7="Gas Week", 8="Water Week"]
+                Chart item=Flukso_Elec period=h refresh=6000 visibility=[E_Chart_Period==0, E_Chart_Period=="Uninitialized"]
+                Chart item=Flukso_Elec period=D refresh=30000 visibility=[E_Chart_Period==3]
+                Chart item=Flukso_Elec period=W refresh=6000 visibility=[E_Chart_Period==6]
+                Chart item=Flukso_Gas period=h refresh=30000 visibility=[E_Chart_Period==1]
+                Chart item=Flukso_Gas period=D refresh=30000 visibility=[E_Chart_Period==4]
+                Chart item=Flukso_Gas period=W refresh=6000 visibility=[E_Chart_Period==7]
+                Chart item=Flukso_Water period=h refresh=30000 visibility=[E_Chart_Period==2]
+                Chart item=Flukso_Water period=D refresh=30000 visibility=[E_Chart_Period==5]
+                Chart item=Flukso_Water period=W refresh=30000 visibility=[E_Chart_Period==8]
             }
         }
     }
@@ -48,24 +67,6 @@ sitemap default label="House"
         Group item=gFF label="First Floor" icon="firstfloor"
         Group item=gGF label="Ground Floor" icon="groundfloor"
         Group item=gGa label="Garage" icon="garage"     
-    }
-    Frame label="Energy" {
-        Group item=gEnergy label="Energy" icon="energy"
-        Group item=Flukso label="Flukso" icon="energy"
-        Text item=Charts icon="energy" {
-            Frame label="Chart" {
-                Switch item=E_Chart_Period label="Chart Period" mappings=[0="Electricity Hour", 1="Gas Hour", 2="Water Hour",3="Electricity Day", 4="Gas Day", 5="Water Day", 6="Electricity Week", 7="Gas Week", 8="Water Week"]
-                Chart item=Flukso_Elec period=h refresh=6000 visibility=[E_Chart_Period==0, E_Chart_Period=="Uninitialized"]
-                Chart item=Flukso_Elec period=D refresh=30000 visibility=[E_Chart_Period==3]
-                Chart item=Flukso_Elec period=W refresh=6000 visibility=[E_Chart_Period==6]
-                Chart item=Flukso_Gas period=h refresh=30000 visibility=[E_Chart_Period==1]
-                Chart item=Flukso_Gas period=D refresh=30000 visibility=[E_Chart_Period==4]
-                Chart item=Flukso_Gas period=W refresh=6000 visibility=[E_Chart_Period==7]
-                Chart item=Flukso_Water period=h refresh=30000 visibility=[E_Chart_Period==2]
-                Chart item=Flukso_Water period=D refresh=30000 visibility=[E_Chart_Period==5]
-                Chart item=Flukso_Water period=W refresh=30000 visibility=[E_Chart_Period==8]
-            }
-        }
     }
     Frame label="Climate" {
         Text item=Climate icon="solarplant" {

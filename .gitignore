@@ -3,3 +3,5 @@ configurations/users.cfg
 configurations/openhab.cfg
 configurations/items/flukso.items
 configurations/rules/thingspeak.rules
+configurations/rules/email.rules
+configurations/enableGuestWLAN.py
