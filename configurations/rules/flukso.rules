@@ -102,6 +102,7 @@ when
   Item Flukso_Gas received update
 then
   postUpdate(Flukso_Gas_LastUpdate, new DateTimeType())
+  postUpdate(Flukso_Gas_Minute, (Flukso_Gas.state as DecimalType / 1440))
 end
 
 rule "Records last Water update time"
@@ -109,4 +110,5 @@ when
   Item Flukso_Water received update
 then
   postUpdate(Flukso_Water_LastUpdate, new DateTimeType())
+  postUpdate(Flukso_Water_Minute, (Flukso_Water.state as DecimalType / 1440))
 end
