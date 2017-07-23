@@ -7,6 +7,8 @@ Group Status      (All)
 Group gOut          (All)
 Group gEnergy   (All)
 Group gSensors   (All)
+Group gSensors_Temp   (All)
+Group gSensors_Hum  (All)
 
 Group gBattery      (All)
 
@@ -52,18 +54,18 @@ Number Water_Cost_Today  "Cost Water [%.2f EUR]" <water> (gEnergy)
 Number Cost_Today  "Cost Total [%.2f EUR]"  (gEnergy) 
 
 /* MySensors sensors */
-Number  S_Hum01              "Humidity Guest [%.1f %%Rh]"   <water>         (GF_Guest,gSensors)        {mysensors="3;0;V_HUM"}
-Number  S_Temp01           "Temperature Guest [%.1f °C]"     <temperature>   (GF_Guest,gSensors)     {mysensors="3;1;V_TEMP"}
+Number  S_Hum01              "Humidity Guest [%.1f %%Rh]"   <water>         (GF_Guest,gSensors,gSensors_Hum)        {mysensors="3;0;V_HUM"}
+Number  S_Temp01           "Temperature Guest [%.1f °C]"     <temperature>   (GF_Guest,gSensors,gSensors_Temp)     {mysensors="3;1;V_TEMP"}
 Number  S_Bat01           "Battery Guest [%.0f %%]"     <energy>   (SF_Guest,gBattery)     {mysensors="3;255;I_BATTERY_LEVEL"}
-Number  S_Hum02              "Humidity Bed [%.1f %%Rh]"   <water>         (SF_Bed,gSensors)        {mysensors="5;0;V_HUM"}
-Number  S_Temp02           "Temperature Bed [%.1f °C]"     <temperature>   (SF_Bed,gSensors)     {mysensors="5;1;V_TEMP"}
+Number  S_Hum02              "Humidity Bed [%.1f %%Rh]"   <water>         (SF_Bed,gSensors,gSensors_Hum)        {mysensors="5;0;V_HUM"}
+Number  S_Temp02           "Temperature Bed [%.1f °C]"     <temperature>   (SF_Bed,gSensors,gSensors_Temp)     {mysensors="5;1;V_TEMP"}
 Number  S_Bat02           "Battery Bed [%.0f %%]"     <energy>   (SF_Bed,gBattery)     {mysensors="5;255;I_BATTERY_LEVEL"}
-Number  S_Hum03              "Humidity Office [%.1f %%Rh]"   <water>         (GF_Office,gSensors)        {mysensors="0;0;V_HUM"}
-Number  S_Temp03           "Temperature Office [%.1f °C]"     <temperature>   (GF_Office,gSensors)     {mysensors="0;1;V_TEMP"}
-Number  S_Hum06              "Humidity Office b [%.1f %%Rh]"   <water>         (GF_Office,gSensors)        {mysensors="0;2;V_HUM"}
-Number  S_Temp06           "Temperature Office b [%.1f °C]"     <temperature>   (GF_Office,gSensors)     {mysensors="0;3;V_TEMP"}
-Number  S_Hum05              "Humidity Office c [%.1f %%Rh]"   <water>         (GF_Office,gSensors)        {mysensors="0;4;V_HUM"}
-Number  S_Temp05           "Temperature Office c [%.1f °C]"     <temperature>   (GF_Office,gSensors)     {mysensors="0;5;V_TEMP"}
+Number  S_Hum03              "Humidity Office [%.1f %%Rh]"   <water>         (GF_Office,gSensors,gSensors_Hum)        {mysensors="0;0;V_HUM"}
+Number  S_Temp03           "Temperature Office [%.1f °C]"     <temperature>   (GF_Office,gSensors,gSensors_Temp)     {mysensors="0;1;V_TEMP"}
+Number  S_Hum06              "Humidity Office b [%.1f %%Rh]"   <water>         (GF_Office,gSensors,gSensors_Hum)        {mysensors="0;2;V_HUM"}
+Number  S_Temp06           "Temperature Office b [%.1f °C]"     <temperature>   (GF_Office,gSensors,gSensors_Temp)     {mysensors="0;3;V_TEMP"}
+Number  S_Hum05              "Humidity Office c [%.1f %%Rh]"   <water>         (GF_Office,gSensors,gSensors_Hum)        {mysensors="0;4;V_HUM"}
+Number  S_Temp05           "Temperature Office c [%.1f °C]"     <temperature>   (GF_Office,gSensors,gSensors_Temp)     {mysensors="0;5;V_TEMP"}
 Number  S_Dust01           "Dust Office [%.0f pcs/283ml]"     <fire>   (GF_Office,gSensors)     {mysensors="4;4;V_LEVEL"}
 Number  S_Hall01           "Garage Door [%.0f]"     <temperature>   (Ga_Garage,gSensors)     {mysensors="6;0;V_TEMP"}
 Number  S_Bat04           "Battery Garage [%.0f %%]"     <energy>   (Ga_Garage,gBattery)     {mysensors="6;255;I_BATTERY_LEVEL"}

@@ -55,7 +55,22 @@ sitemap default label="House"
         }
     }
     Frame label="Sensors" {
-        Group item=gSensors label="Sensors" icon="temperature-max"
+        Group item=gSensors label="Sensors" icon="temperature-max" 
+        Text item=gSensors_Temp label="Sensor Charts" icon="temperature-max" {
+	    Frame {
+                Switch item=E_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week", 3="Month", 4="Year"]
+                Chart item=gSensors_Temp period=h refresh=30000 visibility=[E_Chart_Period==0, E_Chart_Period=="Uninitialized"]
+                Chart item=gSensors_Temp period=D refresh=30000 visibility=[E_Chart_Period==1]
+                Chart item=gSensors_Temp period=W refresh=30000 visibility=[E_Chart_Period==2]
+                Chart item=gSensors_Temp period=M refresh=30000 visibility=[E_Chart_Period==3]
+                Chart item=gSensors_Temp period=Y refresh=30000 visibility=[E_Chart_Period==4]
+                Chart item=gSensors_Hum period=h refresh=30000 visibility=[E_Chart_Period==0, E_Chart_Period=="Uninitialized"]
+                Chart item=gSensors_Hum period=D refresh=30000 visibility=[E_Chart_Period==1]
+                Chart item=gSensors_Hum period=W refresh=30000 visibility=[E_Chart_Period==2]
+                Chart item=gSensors_Hum period=M refresh=30000 visibility=[E_Chart_Period==3]
+                Chart item=gSensors_Hum period=Y refresh=30000 visibility=[E_Chart_Period==4]
+            }
+        }
         Group item=gUpdate label="Updates" icon="clock"
         Text item=gBattery label="Battery" icon="energy" {
             Text item=S_Bat01 valuecolor=[<15="red",<50="orange",>=50="green"]
